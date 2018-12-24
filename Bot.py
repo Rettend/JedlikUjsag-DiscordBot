@@ -175,10 +175,10 @@ async def nick(ctx, *, name=None):
 
 @bot.command(pass_context=True)
 asnyc def say(ctx, *, smth=None):
-  if smth is None:
-      await bot.reply("**Használat: `-say {valami}` köcce.**")
-  else:
-      await bot.say(f"**{smth}**")
+    if smth is None:
+        await bot.reply("**Használat: `-say {valami}` köcce.**")
+    else:
+        await bot.say(f"**{smth}**")
 
 #-----------------------------------------------
 @bot.event
