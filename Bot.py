@@ -516,7 +516,6 @@ async def on_message(message):
                             '-oof\n'
                             '-8ball', inline=False)
         emb.set_thumbnail(url='https://cdn.discordapp.com/emojis/385152309090451467.png?v=1')
-        emb.set_footer(text='The Official Bot of PissRocket, inviting and using the Bot in other servers breaks the Term of Use.\nType r-help 2 for more commands!!')
         await bot.send_message(message.channel, embed=emb)
     await bot.process_commands(message) #IMPORTAN
 
