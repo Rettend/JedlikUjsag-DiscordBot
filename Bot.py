@@ -174,7 +174,7 @@ async def nick(ctx, *, name=None):
         await bot.say(embed=em)
 
 @bot.command(pass_context=True)
-asnyc def say(ctx, *, smth=None):
+async def say(ctx, *, smth=None):
     if smth is None:
         await bot.reply("**Használat: `-say {valami}` köcce.**")
     else:
