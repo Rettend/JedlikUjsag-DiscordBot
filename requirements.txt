@@ -1,0 +1,9 @@
+discord.py
+asyncio
+aiohttp
+asyncpg
+psycopg2-binary
+apiclient
+google-api-python-client
+datadog
+google_auth_oauthlib
