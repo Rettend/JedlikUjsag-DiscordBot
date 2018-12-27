@@ -3,7 +3,7 @@ from time import gmtime
 from discord.ext import commands
 
 #-------------------DATA---------------------
-version = "0.1.0"
+version = "0.1.2"
 owner = ["361534796830081024"]
 bot = commands.Bot(command_prefix='-', description=None)
 bot.remove_command("help")
@@ -384,6 +384,15 @@ async def say(ctx, *, smth=None):
     else:
         await bot.say(f"**{smth}**")
 
+@bot.command(pass_context=True)
+async def poll(ctx, *, text=None):
+    if text is None:
+        await bot.reply("**Használat: `-poll {valami}` köcce.**")
+    else:
+        em = discord.Embed(title="Poll", description=text, colour=0x3498db)
+        msg = await bot.send_message(ctx.message.channel, embed=em)
+        await bot.add_reaction(msg, "👍")
+        await bot.add_reaction(msg, "👎")
 #-----------------------------------------------
 @bot.event
 async def on_message(message):
@@ -514,6 +523,7 @@ async def on_message(message):
                             '-leavepls\n'
                             '-lenny\n'
                             '-oof\n'
+                            '-poll\n'
                             '-8ball', inline=False)
         emb.set_thumbnail(url='https://cdn.discordapp.com/emojis/385152309090451467.png?v=1')
         await bot.send_message(message.channel, embed=emb)
