@@ -385,7 +385,17 @@ async def say(ctx, *, smth=None):
         await bot.say(f"**{smth}**")
 
 @bot.command(pass_context=True)
-async def poll(ctx, *, text=None):
+async def poll1(ctx, option=None, *, text=None):
+    if text is None:
+        await bot.reply("**Használat: `-poll {valami}` köcce.**")
+    else:
+        em = discord.Embed(title="Poll", description=text, colour=0x3498db)
+        msg = await bot.send_message(ctx.message.channel, embed=em)
+        await bot.add_reaction(msg, "1️⃣")
+        await bot.add_reaction(msg, "2️⃣")
+
+@bot.command(pass_context=True)
+async def poll2(ctx, option=None, *, text=None):
     if text is None:
         await bot.reply("**Használat: `-poll {valami}` köcce.**")
     else:
@@ -396,6 +406,8 @@ async def poll(ctx, *, text=None):
 #-----------------------------------------------
 @bot.event
 async def on_message(message):
+    if message.content.startswith("-poll"):
+        await bot.send_message(message.channel, f"**{message.author.mention}, Ez: `-poll1` vagy ez `-poll2`**")
     if message.content.startswith("-time"):
         timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         await bot.send_message(message.channel, f"**{message.author.mention}, a pontos idő: __{timer}__**")
