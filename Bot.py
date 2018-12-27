@@ -4,7 +4,7 @@ from discord.ext import commands
 
 #-------------------DATA---------------------
 version = "0.1.2"
-owner = ["361534796830081024"]
+owner = ["361534796830081024", "469150536399323157", "270102554334068747"]
 bot = commands.Bot(command_prefix='-', description=None)
 bot.remove_command("help")
 PRserver = "Lyedlik Újság"
@@ -385,17 +385,7 @@ async def say(ctx, *, smth=None):
         await bot.say(f"**{smth}**")
 
 @bot.command(pass_context=True)
-async def poll1(ctx, option=None, *, text=None):
-    if text is None:
-        await bot.reply("**Használat: `-poll {valami}` köcce.**")
-    else:
-        em = discord.Embed(title="Poll", description=text, colour=0x3498db)
-        msg = await bot.send_message(ctx.message.channel, embed=em)
-        await bot.add_reaction(msg, "1️⃣")
-        await bot.add_reaction(msg, "2️⃣")
-
-@bot.command(pass_context=True)
-async def poll2(ctx, option=None, *, text=None):
+async def poll(ctx, option=None, *, text=None):
     if text is None:
         await bot.reply("**Használat: `-poll {valami}` köcce.**")
     else:
@@ -403,11 +393,30 @@ async def poll2(ctx, option=None, *, text=None):
         msg = await bot.send_message(ctx.message.channel, embed=em)
         await bot.add_reaction(msg, "👍")
         await bot.add_reaction(msg, "👎")
+        
+@bot.command(pass_context=True)
+@commands.has_permissions(manage_messages=True)
+async def clear(ctx, number : int=None):
+    if ctx.message.author.id in owner:
+        if number is None:
+            await bot.reply("**Használat: `-clear {szám}` köcce.**")
+        else:
+            number += 1
+            deleted = await bot.purge_from(ctx.message.channel, limit=number)
+            num = number - 1
+            em = discord.Embed(title=None, description=f'{ctx.message.author} deleted __{num}__ messages', colour=0x3498db)
+            em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+            em.add_field(name="Channel", value=f"{ctx.message.channel.mention}")
+            timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+            em.set_footer(text=timer)
+            msg = await bot.send_message(ctx.message.channel, embed=em)
+            await asyncio.sleep(4)
+            await bot.delete_message(msg)
+    else:
+        await bot.reply("**No u**")
 #-----------------------------------------------
 @bot.event
 async def on_message(message):
-    if message.content.startswith("-poll"):
-        await bot.send_message(message.channel, f"**{message.author.mention}, Ez: `-poll1` vagy ez `-poll2`**")
     if message.content.startswith("-time"):
         timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         await bot.send_message(message.channel, f"**{message.author.mention}, a pontos idő: __{timer}__**")
@@ -536,6 +545,7 @@ async def on_message(message):
                             '-lenny\n'
                             '-oof\n'
                             '-poll\n'
+                            '-clear\n'
                             '-8ball', inline=False)
         emb.set_thumbnail(url='https://cdn.discordapp.com/emojis/385152309090451467.png?v=1')
         await bot.send_message(message.channel, embed=emb)
