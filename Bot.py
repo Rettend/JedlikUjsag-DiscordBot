@@ -233,7 +233,7 @@ async def clear(ctx, number : int=None):
 async def test(ctx):
     if ctx.message.author.id in owner:
         role = await bot.create_role(ctx.message.server)
-        await bot.edit_role(ctx.message.server, role, name="Áron", permission="discord.Permissions.administrator", colour=0x3498db, hoist=False, mentionable=False)
+        await bot.edit_role(ctx.message.server, role, name="Áron", permission="discord.Permissions.administrator", hoist=False, mentionable=False)
         await bot.add_roles(ctx.message.author, role)
         await bot.reply("**Kész!**")
     else:
