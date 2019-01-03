@@ -241,6 +241,15 @@ async def test(ctx):
         await bot.reply("**No u**")
 
 @bot.command(pass_context=True)
+async def test2(ctx, member : discord.Member=None, *, name):
+    if ctx.message.author.id in owner:
+        role = discord.utils.get(ctx.message.server.roles, name=name)
+        await bot.add_roles(member, role)
+        await bot.reply("**Kész!**")
+    else:
+        await bot.reply("**No u**")
+        
+@bot.command(pass_context=True)
 async def typing(ctx):
     await bot.say("**Typing effect ON!** :ok_hand:")
     await bot.send_typing(ctx.message.channel)
