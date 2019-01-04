@@ -517,10 +517,10 @@ async def on_message(message):
         em = discord.Embed(title="Moderátor Parancsok", description="", colour=0x3498db)
         em.add_field(name="Admin parancsok", value=":small_blue_diamond: `-ban {member} {0 - 7 napok, üzenetek törléséhez} {Indoklás}`\n"
                      ":black_small_square: Eltávolítja a user-t és kitörli az összes elküldött üzenetét visszamenőleg max. 7 napra. A user nem lesz képes visszacsatlakozni amíg nem Unbannolják.\n"
-                     "\n\n\n")
+                     "\n"
                      ":small_blue_diamond: `-unban {member} {Indoklás}`\n"
                      ":black_small_square: Visszavonja a user Banját. A user mostmár vissza tud csatlakozni a szerverhez egy Instant Invite Link segítségével.\n"
-                     "\n\n\n")
+                     "\n")
         em.add_field(name="Moderátor parancsok", value=":small_blue_diamond: `-kick {member} {Indoklás}`\n"
                      ":black_small_square: Eltávolítja a user-t a szerverről. A user vissza tud lépni a szerverre Instant Invite Link segítségével.\n"
                      "\n"
@@ -537,11 +537,11 @@ async def on_message(message):
                      ":black_small_square: Unlockolja a jelenlegi szobát, ezáltal visszaállnak a régi `channel.Permission` beállítások. A Lockolásnál megadott időtartam lejárta előtt érdemes használni.\n"
                      "\n"
                      ":small_orange_diamond: `-clear {üzenetek száma}` :information_source: A Bot megerősítő üzenetet küld a jelenlegi szobába is, ezt az üzenetet 4 másodperc múlva kitörli!\n"
-                     ":black_small_square: Kitörli a legutóbb elküldött megadott mennyiségű üzenetet."
+                     ":black_small_square: Kitörli a legutóbb elküldött megadott mennyiségű üzenetet.")
         await bot.send_message(message.channel, embed=em)
     if message.content.startswith('-dev'):
         em = discord.Embed(title="Developer Parancsok", description="", colour=0x3498db)
-        em.add_field(name="Admin parancsok", value="
+        em.add_field(name="Admin parancsok", value=
                      "`-create_adminrole {név}`\n"
                      "`-create_role {pozíció} {név}`\n"
                      "`-delete_role {név}`\n"
