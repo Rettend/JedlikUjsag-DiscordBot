@@ -537,11 +537,11 @@ async def on_message(message):
                      ":black_small_square: Unlockolja a jelenlegi szobát, ezáltal visszaállnak a régi `channel.Permission` beállítások. A Lockolásnál megadott időtartam lejárta előtt érdemes használni.\n"
                      "\n"
                      ":small_orange_diamond: `-clear {üzenetek száma}` :information_source: A Bot megerősítő üzenetet küld a jelenlegi szobába is, ezt az üzenetet 4 másodperc múlva kitörli!\n"
-                     ":black_small_square: Kitörli a legutóbb elküldött megadott mennyiségű üzenetet.")
+                     ":black_small_square: Kitörli a legutóbb elküldött megadott mennyiségű üzenetet.\n")
         await bot.send_message(message.channel, embed=em)
     if message.content.startswith('-dev'):
         em = discord.Embed(title="Developer Parancsok", description="", colour=0x3498db)
-        em.add_field(name="Admin parancsok", value=
+        em.add_field(name="\n", value=
                      "`-create_adminrole {név}`\n"
                      "`-create_role {pozíció} {név}`\n"
                      "`-delete_role {név}`\n"
