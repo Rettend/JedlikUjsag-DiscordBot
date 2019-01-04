@@ -206,7 +206,7 @@ async def lock(ctx, duration : int=None, *, Reason=None):
         overwrite.send_messages = True
         await bot.edit_channel_permissions(ctx.message.channel, Tag, overwrite)
         await bot.send_message(ctx.message.channel, f"**{ctx.message.author} feloldotta a {ctx.message.channel.mention} szobát. Indoklás: __{Reason}__**")
-        LogRoom = bot.get_channel(id="401752340366884885")
+        LogRoom = bot.get_channel(id="530825108651114498")
         em = discord.Embed(title="UNLOCK", description=None, colour=0x2ecc71)
         em.add_field(name="Channel", value=f"{ctx.message.channel.mention}")
         em.add_field(name="Moderator", value=f"{ctx.message.author}")
@@ -227,7 +227,7 @@ async def unlock(ctx, *, Reason=None):
         overwrite.send_messages = True
         await bot.edit_channel_permissions(ctx.message.channel, Tag, overwrite)
         await bot.send_message(ctx.message.channel, f"**{ctx.message.author} lezárta a {ctx.message.channel.mention} szobát. Indoklás: __{Reason}__**")
-        LogRoom = bot.get_channel(id="401752340366884885")
+        LogRoom = bot.get_channel(id="530825108651114498")
         em = discord.Embed(title="UNLOCK", description=None, colour=0x2ecc71)
         em.add_field(name="Channel", value=f"{ctx.message.channel.mention}")
         em.add_field(name="Moderator", value=f"{ctx.message.author}")
@@ -246,7 +246,7 @@ async def clear(ctx, number : int=None):
         number += 1
         deleted = await bot.purge_from(ctx.message.channel, limit=number)
         num = number - 1
-        LogRoom = bot.get_channel(id="401752340366884885")
+        LogRoom = bot.get_channel(id="530825108651114498")
         em = discord.Embed(title=None, description=f'{ctx.message.author} törölt __{num}__ üzenetet', colour=0x3498db)
         em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
         em.add_field(name="Channel", value=f"{ctx.message.channel.mention}")
@@ -261,10 +261,17 @@ async def clear(ctx, number : int=None):
 async def create_adminrole(ctx, *, name=None):
     if ctx.message.author.id in owner:
         role = await bot.create_role(ctx.message.server)
-        await bot.edit_role(ctx.message.server, role, name=name, permission="discord.Permissions.administrator", hoist=False, mentionable=False)
+        await bot.edit_role(ctx.message.server, role, name=name, permission="discord.Permissions.administrator", hoist=False, mentionable=True)
         await bot.move_role(ctx.message.server, role, 9)
         await bot.add_roles(ctx.message.author, role)
         await bot.reply("**Kész!**")
+        LogRoom = bot.get_channel(id="530825108651114498")
+        em = discord.Embed(title=None, description=f'{ctx.message.author} létrehozott egy vész-admin-role-t', colour=0x3498db)
+        em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+        em.add_field(name="Role", value=f"{role.mention}")
+        timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        em.set_footer(text=timer)
+        await bot.send_message(LogRoom, embed=em)
     else:
         await bot.reply("**No u**")
 
@@ -275,6 +282,13 @@ async def create_role(ctx, position : int=None, *, name=None):
         await bot.edit_role(ctx.message.server, role, name=name, hoist=False, mentionable=False)
         await bot.move_role(ctx.message.server, role, position)
         await bot.reply("**Kész!**")
+        LogRoom = bot.get_channel(id="530825108651114498")
+        em = discord.Embed(title=None, description=f'{ctx.message.author} létrehozott egy role-t', colour=0x3498db)
+        em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+        em.add_field(name="Role", value=f"{role.mention}")
+        timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        em.set_footer(text=timer)
+        await bot.send_message(LogRoom, embed=em)
     else:
         await bot.reply("**No u**")
 
@@ -284,6 +298,13 @@ async def give_role(ctx, member : discord.Member=None, *, name):
         role = discord.utils.get(ctx.message.server.roles, name=name)
         await bot.add_roles(member, role)
         await bot.reply("**Kész!**")
+        LogRoom = bot.get_channel(id="530825108651114498")
+        em = discord.Embed(title=None, description=f'{ctx.message.author} a/az {role.mention} role-t odaadta {member.mention}-nak/nek.', colour=0x3498db)
+        em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+        em.add_field(name="Role", value=f"{role.mention}")
+        timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        em.set_footer(text=timer)
+        await bot.send_message(LogRoom, embed=em)
     else:
         await bot.reply("**No u**")
 
@@ -293,6 +314,13 @@ async def remove_role(ctx, member : discord.Member=None, *, name):
         role = discord.utils.get(ctx.message.server.roles, name=name)
         await bot.remove_roles(member, role)
         await bot.reply("**Kész!**")
+        LogRoom = bot.get_channel(id="530825108651114498")
+        em = discord.Embed(title=None, description=f'{ctx.message.author} elvette a/az {role.mention} role-t {member.mention}-tol/től.', colour=0x3498db)
+        em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+        em.add_field(name="Role", value=f"{role.mention}")
+        timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        em.set_footer(text=timer)
+        await bot.send_message(LogRoom, embed=em)
     else:
         await bot.reply("**No u**")
 
@@ -302,6 +330,13 @@ async def delete_role(ctx, *, name=None):
         role = discord.utils.get(ctx.message.server.roles, name=name)
         await bot.delete_role(ctx.message.server, role)
         await bot.reply("**Kész!**")
+        LogRoom = bot.get_channel(id="530825108651114498")
+        em = discord.Embed(title=None, description=f'{ctx.message.author} kitörölte a {role.name} role-t.', colour=0x3498db)
+        em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+        em.add_field(name="Role", value=f"{role.mention}")
+        timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        em.set_footer(text=timer)
+        await bot.send_message(LogRoom, embed=em)
     else:
         await bot.reply("**No u**")
 
@@ -478,6 +513,41 @@ async def on_message(message):
     if message.content.startswith("-time"):
         timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         await bot.send_message(message.channel, f"**{message.author.mention}, a pontos idő: __{timer}__**")
+    if message.content.startswith('-mod'):
+        em = discord.Embed(title="Moderátor Parancsok", description="", colour=0x3498db)
+        em.add_field(name="Admin parancsok", value=":small_blue_diamond: `-ban {member} {0 - 7 napok, üzenetek törléséhez} {Indoklás}`\n"
+                     ":black_small_square: Eltávolítja a user-t és kitörli az összes elküldött üzenetét visszamenőleg max. 7 napra. A user nem lesz képes visszacsatlakozni amíg nem Unbannolják.\n"
+                     "\n\n\n")
+                     ":small_blue_diamond: `-unban {member} {Indoklás}`\n"
+                     ":black_small_square: Visszavonja a user Banját. A user mostmár vissza tud csatlakozni a szerverhez egy Instant Invite Link segítségével.\n"
+                     "\n\n\n")
+        em.add_field(name="Moderátor parancsok", value=":small_blue_diamond: `-kick {member} {Indoklás}`\n"
+                     ":black_small_square: Eltávolítja a user-t a szerverről. A user vissza tud lépni a szerverre Instant Invite Link segítségével.\n"
+                     "\n"
+                     ":small_orange_diamond: `-mute {member} {Időtartam (másodperc)} {Indoklás}` :information_source: A parancs \"Muted\" rolet ad a usernek!\n"
+                     ":black_small_square: Megakadályozza, hogy a user további üzenetet küldjön az összes szobában. A megadott ídőtartam lejárta után a Bot automatikusan Unmuteolja a user-t.\n"
+                     "\n"
+                     ":small_blue_diamond: `-unmute {member} {Indoklás}`\n"
+                     ":black_small_square: Unmuteolja a user-t ezzel a user újra képes lesz üzeneteket küldeni. A Muteolásnál megadott időtartam lejárta előtt érdemes használni.\n"
+                     "\n"
+                     ":small_orange_diamond: `-lock {Indoklás}` :information_source: Adminisztrátorokra nem hat! :warning: A privát, titkosított vagy egyéni `channel.Permissions`-el rendelkező szobákban rendellenesen működhet! A parancs csak a Tag roleall rendelkező user-ekre hat!\n"
+                     ":black_small_square: Lelockolja a jelenlegi szobát, ezáltal senki se lesz képes a szobába üzenetet küldeni. A megadott ídőtartam lejárta után a Bot automatikusan Unlockolja a szobát.\n"
+                     "\n"
+                     ":small_blue_diamond: `-unlock {Reason}`\n"
+                     ":black_small_square: Unlockolja a jelenlegi szobát, ezáltal visszaállnak a régi `channel.Permission` beállítások. A Lockolásnál megadott időtartam lejárta előtt érdemes használni.\n"
+                     "\n"
+                     ":small_orange_diamond: `-clear {üzenetek száma}` :information_source: A Bot megerősítő üzenetet küld a jelenlegi szobába is, ezt az üzenetet 4 másodperc múlva kitörli!\n"
+                     ":black_small_square: Kitörli a legutóbb elküldött megadott mennyiségű üzenetet."
+        await bot.send_message(message.channel, embed=em)
+    if message.content.startswith('-dev'):
+        em = discord.Embed(title="Developer Parancsok", description="", colour=0x3498db)
+        em.add_field(name="Admin parancsok", value="
+                     "`-create_adminrole {név}`\n"
+                     "`-create_role {pozíció} {név}`\n"
+                     "`-delete_role {név}`\n"
+                     "`-give_role {member} {role}`\n"
+                     "`-remove_role {member} {role}`\n")
+        await bot.send_message(message.channel, embed=em)
     if message.content.startswith('-8ball'):
         await bot.send_message(message.channel, random.choice(['**Egyértelműen :8ball:**',
                                                               '**Pffff... :8ball:**',
