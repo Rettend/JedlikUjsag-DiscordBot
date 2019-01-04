@@ -222,7 +222,7 @@ async def unlock(ctx, *, Reason=None):
     if Reason is None:
         await bot.reply("**Használat: `-unlock {Indoklás}` köcce.**")
     else:
-        Registered = discord.utils.get(ctx.message.server.roles, name="Tag")
+        Tag = discord.utils.get(ctx.message.server.roles, name="Tag")
         overwrite = discord.PermissionOverwrite()
         overwrite.send_messages = True
         await bot.edit_channel_permissions(ctx.message.channel, Tag, overwrite)
