@@ -186,7 +186,7 @@ async def lock(ctx, duration : int=None, *, Reason=None):
     elif duration is None:
         await bot.reply("**Használat: `-lock {member} {Időtartam (s)} {Indoklás}` köcce.**")
     else:
-        Registered = discord.utils.get(ctx.message.server.roles, name="Tag")
+        Tag = discord.utils.get(ctx.message.server.roles, name="Tag")
         overwrite = discord.PermissionOverwrite()
         overwrite.send_messages = False
         await bot.edit_channel_permissions(ctx.message.channel, Tag, overwrite)
