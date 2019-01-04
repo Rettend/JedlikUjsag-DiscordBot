@@ -511,7 +511,7 @@ async def poll(ctx, option=None, *, text=None):
 @bot.event
 async def on_message(message):
     if message.content.startswith("-time"):
-        timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        timer = time.strftime("%a, %d %b %Y %H+1:%M:%S UTC + 1 közép-eúrópai idő", gmtime())
         await bot.send_message(message.channel, f"**{message.author.mention}, a pontos idő: __{timer}__**")
     if message.content.startswith('-mod'):
         em = discord.Embed(title="Moderátor Parancsok", description="", colour=0x3498db)
