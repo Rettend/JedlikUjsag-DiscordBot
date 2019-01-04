@@ -3,7 +3,6 @@ from time import gmtime
 from discord.ext import commands
 
 #-------------------DATA---------------------
-version = "0.2.12"
 owner = ["361534796830081024"]
 alowner = ["469150536399323157", "270102554334068747"]
 bot = commands.Bot(command_prefix='-', description=None)
@@ -511,7 +510,7 @@ async def poll(ctx, option=None, *, text=None):
 @bot.event
 async def on_message(message):
     if message.content.startswith("-time"):
-        timer = time.strftime("%a, %d %b %Y %H+1:%M:%S UTC + 1 közép-eúrópai idő", gmtime())
+        timer = time.strftime("%a, %d %b %Y %H:%M:%S UTC + 0 greenwichi idő", gmtime())
         await bot.send_message(message.channel, f"**{message.author.mention}, a pontos idő: __{timer}__**")
     if message.content.startswith('-mod'):
         em = discord.Embed(title="Moderátor Parancsok", description="", colour=0x3498db)
@@ -521,7 +520,8 @@ async def on_message(message):
                      ":small_blue_diamond: `-unban {member} {Indoklás}`\n"
                      ":black_small_square: Visszavonja a user Banját. A user mostmár vissza tud csatlakozni a szerverhez egy Instant Invite Link segítségével.\n"
                      "\n")
-        em.add_field(name="Moderátor parancsok", value=":small_blue_diamond: `-kick {member} {Indoklás}`\n"
+        emb = discord.Embed(title="Moderátor Parancsok", description="", colour=0x3498db)
+        emb.add_field(name="Moderátor parancsok", value=":small_blue_diamond: `-kick {member} {Indoklás}`\n"
                      ":black_small_square: Eltávolítja a user-t a szerverről. A user vissza tud lépni a szerverre Instant Invite Link segítségével.\n"
                      "\n"
                      ":small_orange_diamond: `-mute {member} {Időtartam (másodperc)} {Indoklás}` :information_source: A parancs \"Muted\" rolet ad a usernek!\n"
@@ -529,8 +529,9 @@ async def on_message(message):
                      "\n"
                      ":small_blue_diamond: `-unmute {member} {Indoklás}`\n"
                      ":black_small_square: Unmuteolja a user-t ezzel a user újra képes lesz üzeneteket küldeni. A Muteolásnál megadott időtartam lejárta előtt érdemes használni.\n"
-                     "\n"
-                     ":small_orange_diamond: `-lock {Indoklás}` :information_source: Adminisztrátorokra nem hat! :warning: A privát, titkosított vagy egyéni `channel.Permissions`-el rendelkező szobákban rendellenesen működhet! A parancs csak a Tag roleall rendelkező user-ekre hat!\n"
+                     "\n")
+        embed = discord.Embed(title="Moderátor Parancsok", description="", colour=0x3498db)
+        emb.add_field(name="Moderátor parancsok", value=":small_orange_diamond: `-lock {Indoklás}` :information_source: Adminisztrátorokra nem hat! :warning: A privát, titkosított vagy egyéni `channel.Permissions`-el rendelkező szobákban rendellenesen működhet! A parancs csak a Tag roleall rendelkező user-ekre hat!\n"
                      ":black_small_square: Lelockolja a jelenlegi szobát, ezáltal senki se lesz képes a szobába üzenetet küldeni. A megadott ídőtartam lejárta után a Bot automatikusan Unlockolja a szobát.\n"
                      "\n"
                      ":small_blue_diamond: `-unlock {Reason}`\n"
@@ -539,15 +540,16 @@ async def on_message(message):
                      ":small_orange_diamond: `-clear {üzenetek száma}` :information_source: A Bot megerősítő üzenetet küld a jelenlegi szobába is, ezt az üzenetet 4 másodperc múlva kitörli!\n"
                      ":black_small_square: Kitörli a legutóbb elküldött megadott mennyiségű üzenetet.\n")
         await bot.send_message(message.channel, embed=em)
+        await bot.send_message(message.channel, embed=emb)
+        await bot.send_message(message.channel, embed=embed)
     if message.content.startswith('-dev'):
-        em = discord.Embed(title="Developer Parancsok", description="", colour=0x3498db)
-        em.add_field(name="\n", value=
-                     "`-create_adminrole {név}`\n"
+        emb = discord.Embed(title="Developer Parancsok", description="", colour=0x3498db)
+        emb.add_field(name="\n", value="`-create_adminrole {név}`\n"
                      "`-create_role {pozíció} {név}`\n"
                      "`-delete_role {név}`\n"
                      "`-give_role {member} {role}`\n"
                      "`-remove_role {member} {role}`\n")
-        await bot.send_message(message.channel, embed=em)
+        await bot.send_message(message.channel, embed=emb)
     if message.content.startswith('-8ball'):
         await bot.send_message(message.channel, random.choice(['**Egyértelműen :8ball:**',
                                                               '**Pffff... :8ball:**',
