@@ -25,50 +25,79 @@ class NoPermError(Exception):
     pass
 
 #------------------MOD-----------------------
-"""@bot.command(pass_context=True)
+@bot.command(pass_context=True)
 @commands.has_permissions(ban_members=True)
 async def ban(ctx, user : discord.User=None, Day : int=None, *, Reason=None):
     if user is None:
-        await bot.reply("**The usage is `r-ban {member} {0 - 7 amount of days to delete his messages} {Reason}` ty.**")
+        await bot.reply("**Használat: `-ban {member} {0 - 7 napok, üzenetek törléséhez} {Indoklás}` köcce.**")
     elif Reason is None:
-        await bot.reply("**The usage is `r-ban {member} {0 - 7 amount of days to delete his messages} {Reason}` ty.**")
+        await bot.reply("**Használat: `-ban {member} {0 - 7 napok, üzenetek törléséhez} {Indoklás}` köcce.**")
     elif Day is None:
-        await bot.reply("**The usage is `r-ban {member} {0 - 7 amount of days to delete his messages} {Reason}` ty.**")
+        await bot.reply("**Használat: `-ban {member} {0 - 7 napok, üzenetek törléséhez} {Indoklás}` köcce.**")
     else:
         if user.id == ctx.message.author.id:
-            await bot.say("**I won't let you moderate yourself xD**")
+            await bot.say("**Nem fogom engedni, hogy saját magad bannold :P**")
         else:
             room = ctx.message.channel
             await bot.ban(user, delete_message_days=Day)
-            LogRoom = bot.get_channel(id="401752340366884885")
-            await bot.say(f"**{user.mention} got banned by {ctx.message.author.mention} for __{Reason}__\nSee the logs in {LogRoom.mention}**")
+            LogRoom = bot.get_channel(id="530825108651114498")
+            await bot.say(f"**{ctx.message.author.mention} Bannolta {user.mention}-t. Indoklás: __{Reason}__\nLásd a logokban itt: {LogRoom.mention}**")
             em = discord.Embed(title="BAN", description=None, colour=0xad1457)
             em.add_field(name="User", value=f"{user.mention}")
             em.add_field(name="Moderator", value=f"{ctx.message.author}")
             em.add_field(name="Reason", value=f"{Reason}")
-            em.set_thumbnail(url="https://cdn.discordapp.com/attachments/388945761611808769/453211671935057920/banned.gif")
             em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
             timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
             em.set_footer(text=timer)
             await bot.send_message(LogRoom, embed=em)
             Private = await bot.start_private_message(user)
-            await bot.send_message(Private, f"**`Server: {PRserver}`\nBAMM!! You got banned from {PRserver}, bai bai!**\n*Thor made hes best...*")
+            await bot.send_message(Private, f"**`Server: {PRserver}`\nBAMM!! A Banhammer lecsapott rád, csaó!**")
+
+@bot.command(pass_context=True)
+@commands.has_permissions(ban_members=True)
+async def unban(ctx, user : discord.User=None, *, Reason=None):
+    if user is None:
+        await bot.reply("**Használat: `-unban {member} {Indoklás}` köcce.**")
+    elif Reason is None:
+        await bot.reply("**Használat: `-unban {member} {Indoklás}` köcce.**")
+    else:
+        if user.id == ctx.message.author.id:
+            await bot.say("**Nem fogom engedni, hogy saját magad bannold :P**")
+        else:
+            banneds_list = await bot.get_bans(ctx.message.server)
+            if user not in banneds_list:
+                bot.say("**A megadott felhasználó nincs a bannoltak listájában!**")
+            else:
+                room = ctx.message.channel
+                await bot.unban(ctx.message.server, user)
+                LogRoom = bot.get_channel(id="530825108651114498")
+                await bot.say(f"**{ctx.message.author.mention} Unbannolta {user.mention}-t. Indoklás: __{Reason}__\nLásd a logokban itt: {LogRoom.mention}**")
+                em = discord.Embed(title="UNBAN", description=None, colour=0xe91e63)
+                em.add_field(name="User", value=f"{user.mention}")
+                em.add_field(name="Moderator", value=f"{ctx.message.author}")
+                em.add_field(name="Reason", value=f"{Reason}")
+                em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+                timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+                em.set_footer(text=timer)
+                await bot.send_message(LogRoom, embed=em)
+                Private = await bot.start_private_message(user)
+                await bot.send_message(Private, f"**`Server: {PRserver}`\nHello! Unbannoltak téged a {PRserver} discord szerverről, Szeretnél visszajönni? \nhttps://discord.gg/VGqQ76V**")
 
 @bot.command(pass_context=True)
 @commands.has_permissions(kick_members=True)
 async def kick(ctx, user : discord.User=None, *, Reason=None):
     if user is None:
-        await bot.reply("**The usage is `r-kick {member} {Reason}` ty.**")
+        await bot.reply("**Használat: `-kick {member} {Indoklás}` köcce.**")
     elif Reason is None:
-        await bot.reply("**The usage is `r-kick {member} {Reason}` ty.**")
+        await bot.reply("**Használat: `-kick {member} {Indoklás}` köcce.**")
     else:
         if user.id == ctx.message.author.id:
-            await bot.say("**I won't let you moderate yourself xD**")
+            await bot.say("**Nem fogom engedni, hogy saját magad bannold :P**")
         else:
             room = ctx.message.channel
             await bot.kick(user)
-            LogRoom = bot.get_channel(id="401752340366884885")
-            await bot.say(f"**{user.mention} got Kicked by {ctx.message.author.mention} for __{Reason}__\nSee the logs in {LogRoom.mention}**")
+            LogRoom = bot.get_channel(id="530825108651114498")
+            await bot.say(f"**{ctx.message.author.mention} Kickelte {user.mention}-t. Indoklás: __{Reason}__\nLásd a logokban itt: {LogRoom.mention}**")
             em = discord.Embed(title="KICK", description=None, colour=0xe74c3c)
             em.add_field(name="User", value=f"{user.mention}")
             em.add_field(name="Moderator", value=f"{ctx.message.author}")
@@ -78,26 +107,26 @@ async def kick(ctx, user : discord.User=None, *, Reason=None):
             em.set_footer(text=timer)
             await bot.send_message(LogRoom, embed=em)
             Private = await bot.start_private_message(user)
-            await bot.send_message(Private, f"**`Server: {PRserver}`\nHey! You got kicked from {PRserver}, bai bai!**")
+            await bot.send_message(Private, f"**`Server: {PRserver}`\nHello! Kirúgtak a {PRserver} szerverről, viszlát!**")
 
 @bot.command(pass_context=True)
 @commands.has_permissions(manage_messages=True)
 async def mute(ctx, user : discord.User=None, duration : int=None, *, Reason=None):
     if user is None:
-        await bot.reply("**The usage is `r-mute {member} {duration(in sec)} {Reason}` ty.**")
+        await bot.reply("**Használat: `-mute {member} {Időtartam (s)} {Indoklás}` köcce.**")
     elif Reason is None:
-        await bot.reply("**The usage is `r-mute {member} {duration(in sec)} {Reason}` ty.**")
+        await bot.reply("**Használat: `-mute {member} {Időtartam (s)} {Indoklás}` köcce.**")
     elif duration is None:
-        await bot.reply("**The usage is `r-mute {member} {duration(in sec)} {Reason}` ty.**")
+        await bot.reply("**Használat: `-mute {member} {Időtartam (s)} {Indoklás}` köcce.**")
     else:
         if user.id == ctx.message.author.id:
-            await bot.say("**I won't let you moderate yourself xD**")
+            await bot.say("**Nem fogom engedni, hogy saját magad bannold :P**")
         else:
-            LogRoom = bot.get_channel(id="401752340366884885")
+            LogRoom = bot.get_channel(id="530825108651114498")
             room = ctx.message.channel
             MutedRole = discord.utils.get(ctx.message.server.roles, name="Muted")
             await bot.add_roles(user, MutedRole)
-            await bot.say(f"**{user.mention} got Muted (for {duration} sec) by {ctx.message.author.mention} for __{Reason}__\nSee the logs in {LogRoom.mention}**")
+            await bot.say(f"**{ctx.message.author.mention} Muttolta {user.mention}-t {duration} másodpercre. Indoklás: __{Reason}__\nLásd a logokban itt: {LogRoom.mention}**")
             em = discord.Embed(title="MUTE", description=None, colour=0x11806a)
             em.add_field(name="User", value=f"{user.mention}")
             em.add_field(name="Moderator", value=f"{ctx.message.author}")
@@ -108,36 +137,36 @@ async def mute(ctx, user : discord.User=None, duration : int=None, *, Reason=Non
             em.set_footer(text=timer)
             await bot.send_message(LogRoom, embed=em)
             Private = await bot.start_private_message(user)
-            await bot.send_message(Private, f"**`Server: {PRserver}`\nRoses are red, violets are blue and {user.mention} is muted!**")
+            await bot.send_message(Private, f"**`Server: {PRserver}`\nHello! Egy {duration} másodperces MUTE appeard. Seems OP, pls nerf.**")
             await asyncio.sleep(duration)
             await bot.remove_roles(user, MutedRole)
             em = discord.Embed(title="UNMUTE", description=None, colour=0x1abc9c)
             em.add_field(name="User", value=f"{user.mention}")
             em.add_field(name="Moderator", value=f"{ctx.message.author}")
-            em.add_field(name="Reason", value="Time is up...")
+            em.add_field(name="Reason", value="Lejárt a megadott időtartam...")
             em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
             timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
             em.set_footer(text=timer)
             await bot.send_message(LogRoom, embed=em)
             Private = await bot.start_private_message(user)
-            await bot.send_message(Private, f"**`Server: {PRserver}`\nHey! You got unmuted, dont get too excited..**")
+            await bot.send_message(Private, f"**`Server: {PRserver}`\nHello! Unmuttoltak a szerveren, de ne izgasd fel magad túlságosan...**")
 
 @bot.command(pass_context=True)
 @commands.has_permissions(manage_messages=True)
 async def unmute(ctx, user : discord.User=None, *, Reason=None):
     if user is None:
-        await bot.reply("**The usage is `r-unmute {member} {Reason}` ty.**")
+        await bot.reply("**Használat: `-unmute {member} {Indoklás}` köcce.**")
     elif Reason is None:
-        await bot.reply("**The usage is `r-unmute {member} {Reason}` ty.**")
+        await bot.reply("**Használat: `-unmute {member} {Indoklás}` köcce.**")
     else:
         if user.id == ctx.message.author.id:
-            await bot.say("**I won't let you moderate yourself xD**")
+            await bot.say("**Nem fogom engedni, hogy saját magad bannold :P**")
         else:
-            LogRoom = bot.get_channel(id="401752340366884885")
+            LogRoom = bot.get_channel(id="530825108651114498")
             room = ctx.message.channel
             MutedRole = discord.utils.get(ctx.message.server.roles, name="Muted")
             await bot.remove_roles(user, MutedRole)
-            await bot.say(f"**{user.mention} got UnMuted (he he) by {ctx.message.author.mention} for __{Reason}__\nSee the logs in {LogRoom.mention}**")
+            await bot.say(f"**{ctx.message.author.mention} Unmuttolta {user.mention}-t (he he). Indoklás: __{Reason}__\nLásd a logokban itt: {LogRoom.mention}**")
             em = discord.Embed(title="UNMUTE", description=None, colour=0x1abc9c)
             em.add_field(name="User", value=f"{user.mention}")
             em.add_field(name="Moderator", value=f"{ctx.message.author}")
@@ -147,22 +176,22 @@ async def unmute(ctx, user : discord.User=None, *, Reason=None):
             em.set_footer(text=timer)
             await bot.send_message(LogRoom, embed=em)
             Private = await bot.start_private_message(user)
-            await bot.send_message(Private, f"**`Server: {PRserver}`\nHey! You got unmuted, dont get too excited..**")
+            await bot.send_message(Private, f"**`Server: {PRserver}`\nHello! Unmuttoltak a szerveren, de ne izgasd fel magad túlságosan...**")
 
 @bot.command(pass_context=True)
 @commands.has_permissions(manage_channels=True)
 async def lock(ctx, duration : int=None, *, Reason=None):
     if Reason is None:
-        await bot.reply("**The usage is `r-lock {duration (in sec)} {Reason}` ty.**")
+        await bot.reply("**Használat: `-lock {member} {Időtartam (s)} {Indoklás}` köcce.**")
     elif duration is None:
-        await bot.reply("**The usage is `r-lock {duration (in sec)} {Reason}` ty.**")
+        await bot.reply("**Használat: `-lock {member} {Időtartam (s)} {Indoklás}` köcce.**")
     else:
-        Registered = discord.utils.get(ctx.message.server.roles, name="Registered")
+        Registered = discord.utils.get(ctx.message.server.roles, name="Tag")
         overwrite = discord.PermissionOverwrite()
         overwrite.send_messages = False
-        await bot.edit_channel_permissions(ctx.message.channel, Registered, overwrite)
-        await bot.send_message(ctx.message.channel, f"**{ctx.message.channel.mention} is now locked for __{Reason}__**")
-        LogRoom = bot.get_channel(id="401752340366884885")
+        await bot.edit_channel_permissions(ctx.message.channel, Tag, overwrite)
+        await bot.send_message(ctx.message.channel, f"**{ctx.message.author} lezárta a {ctx.message.channel.mention} szobát. Indoklás: __{Reason}__**")
+        LogRoom = bot.get_channel(id="530825108651114498")
         em = discord.Embed(title="LOCK", description=None, colour=0x1f8b4c)
         em.add_field(name="Channel", value=f"{ctx.message.channel.mention}")
         em.add_field(name="Moderator", value=f"{ctx.message.author}")
@@ -175,8 +204,8 @@ async def lock(ctx, duration : int=None, *, Reason=None):
         await asyncio.sleep(duration)
         overwrite = discord.PermissionOverwrite()
         overwrite.send_messages = True
-        await bot.edit_channel_permissions(ctx.message.channel, Registered, overwrite)
-        await bot.send_message(ctx.message.channel, f"**{ctx.message.channel.mention} is now unlocked for __{Reason}__**")
+        await bot.edit_channel_permissions(ctx.message.channel, Tag, overwrite)
+        await bot.send_message(ctx.message.channel, f"**{ctx.message.author} feloldotta a {ctx.message.channel.mention} szobát. Indoklás: __{Reason}__**")
         LogRoom = bot.get_channel(id="401752340366884885")
         em = discord.Embed(title="UNLOCK", description=None, colour=0x2ecc71)
         em.add_field(name="Channel", value=f"{ctx.message.channel.mention}")
@@ -191,13 +220,13 @@ async def lock(ctx, duration : int=None, *, Reason=None):
 @commands.has_permissions(manage_channels=True)
 async def unlock(ctx, *, Reason=None):
     if Reason is None:
-        await bot.reply("**The usage is `r-unlock {Reason}` ty.**")
+        await bot.reply("**Használat: `-unlock {Indoklás}` köcce.**")
     else:
-        Registered = discord.utils.get(ctx.message.server.roles, name="Registered")
+        Registered = discord.utils.get(ctx.message.server.roles, name="Tag")
         overwrite = discord.PermissionOverwrite()
         overwrite.send_messages = True
-        await bot.edit_channel_permissions(ctx.message.channel, Registered, overwrite)
-        await bot.send_message(ctx.message.channel, f"**{ctx.message.channel.mention} is now unlocked for __{Reason}__**")
+        await bot.edit_channel_permissions(ctx.message.channel, Tag, overwrite)
+        await bot.send_message(ctx.message.channel, f"**{ctx.message.author} lezárta a {ctx.message.channel.mention} szobát. Indoklás: __{Reason}__**")
         LogRoom = bot.get_channel(id="401752340366884885")
         em = discord.Embed(title="UNLOCK", description=None, colour=0x2ecc71)
         em.add_field(name="Channel", value=f"{ctx.message.channel.mention}")
@@ -212,13 +241,13 @@ async def unlock(ctx, *, Reason=None):
 @commands.has_permissions(manage_messages=True)
 async def clear(ctx, number : int=None):
     if number is None:
-        await bot.reply("**The usage is `r-clear {number of messages to delete}` ty.**")
+        await bot.reply("**Használat: `-clear {üzenetek száma}` köcce.**")
     else:
         number += 1
         deleted = await bot.purge_from(ctx.message.channel, limit=number)
         num = number - 1
         LogRoom = bot.get_channel(id="401752340366884885")
-        em = discord.Embed(title=None, description=f'{ctx.message.author} deleted __{num}__ messages', colour=0x3498db)
+        em = discord.Embed(title=None, description=f'{ctx.message.author} törölt __{num}__ üzenetet', colour=0x3498db)
         em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
         em.add_field(name="Channel", value=f"{ctx.message.channel.mention}")
         timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
@@ -226,14 +255,13 @@ async def clear(ctx, number : int=None):
         msg = await bot.send_message(ctx.message.channel, embed=em)
         await bot.send_message(LogRoom, embed=em)
         await asyncio.sleep(4)
-        await bot.delete_message(msg)"""
+        await bot.delete_message(msg)
 
-#----------------COMMANDS--------------------
 @bot.command(pass_context=True)
-async def test(ctx):
+async def create_adminrole(ctx, *, name=None):
     if ctx.message.author.id in owner:
         role = await bot.create_role(ctx.message.server)
-        await bot.edit_role(ctx.message.server, role, name="Role", permission="discord.Permissions.administrator", hoist=False, mentionable=False)
+        await bot.edit_role(ctx.message.server, role, name=name, permission="discord.Permissions.administrator", hoist=False, mentionable=False)
         await bot.move_role(ctx.message.server, role, 9)
         await bot.add_roles(ctx.message.author, role)
         await bot.reply("**Kész!**")
@@ -241,14 +269,43 @@ async def test(ctx):
         await bot.reply("**No u**")
 
 @bot.command(pass_context=True)
-async def test2(ctx, member : discord.Member=None, *, name):
+async def create_role(ctx, position : int=None, *, name=None):
+    if ctx.message.author.id in owner:
+        role = await bot.create_role(ctx.message.server)
+        await bot.edit_role(ctx.message.server, role, name=name, hoist=False, mentionable=False)
+        await bot.move_role(ctx.message.server, role, position)
+        await bot.reply("**Kész!**")
+    else:
+        await bot.reply("**No u**")
+
+@bot.command(pass_context=True)
+async def give_role(ctx, member : discord.Member=None, *, name):
     if ctx.message.author.id in owner:
         role = discord.utils.get(ctx.message.server.roles, name=name)
         await bot.add_roles(member, role)
         await bot.reply("**Kész!**")
     else:
         await bot.reply("**No u**")
-        
+
+@bot.command(pass_context=True)
+async def remove_role(ctx, member : discord.Member=None, *, name):
+    if ctx.message.author.id in owner:
+        role = discord.utils.get(ctx.message.server.roles, name=name)
+        await bot.remove_roles(member, role)
+        await bot.reply("**Kész!**")
+    else:
+        await bot.reply("**No u**")
+
+@bot.command(pass_context=True)
+async def delete_role(ctx, *, name=None):
+    if ctx.message.author.id in owner:
+        role = discord.utils.get(ctx.message.server.roles, name=name)
+        await bot.delete_role(ctx.message.server, role)
+        await bot.reply("**Kész!**")
+    else:
+        await bot.reply("**No u**")
+
+#----------------COMMANDS--------------------
 @bot.command(pass_context=True)
 async def typing(ctx):
     await bot.say("**Typing effect ON!** :ok_hand:")
