@@ -471,27 +471,7 @@ async def poll(ctx, option=None, *, text=None):
         msg = await bot.send_message(ctx.message.channel, embed=em)
         await bot.add_reaction(msg, "👍")
         await bot.add_reaction(msg, "👎")
-        
-@bot.command(pass_context=True)
-@commands.has_permissions(manage_messages=True)
-async def clear(ctx, number : int=None):
-    if ctx.message.author.id in owner:
-        if number is None:
-            await bot.reply("**Használat: `-clear {szám}` köcce.**")
-        else:
-            number += 1
-            deleted = await bot.purge_from(ctx.message.channel, limit=number)
-            num = number - 1
-            em = discord.Embed(title=None, description=f'{ctx.message.author} deleted __{num}__ messages', colour=0x3498db)
-            em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
-            em.add_field(name="Channel", value=f"{ctx.message.channel.mention}")
-            timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-            em.set_footer(text=timer)
-            msg = await bot.send_message(ctx.message.channel, embed=em)
-            await asyncio.sleep(4)
-            await bot.delete_message(msg)
-    else:
-        await bot.reply("**No u**")
+
 #-----------------------------------------------
 @bot.event
 async def on_message(message):
