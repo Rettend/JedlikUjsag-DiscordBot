@@ -23,6 +23,24 @@ async def on_ready():
 class NoPermError(Exception):
     pass
 
+@bot.listen()
+async def on_member_join(member):
+    botserver = bot.get_server(id="525316248855117824")
+    membersroom = bot.get_channel(id="531167973025775627")
+    await bot.edit_channel(membersroom, name=f"👥Létszám: {len(botserver.members)}")
+    room = bot.get_channel(id="525316248855117826")
+    em = discord.Embed(title=f"__{member.mention}__ csatlakozott a szerverhez! Üdv!**", colour=0x2ecc71)
+    em.set_thumbnail(url="https://cdn.discordapp.com/emojis/391322023739129856.png?v=1")
+    await bot.send_message(room, embed=em)
+
+@bot.listen()
+async def on_member_remove(member):
+    botserver = bot.get_server(id="525316248855117824")
+    membersroom = bot.get_channel(id="531167973025775627")
+    await bot.edit_channel(membersroom, name=f"👥Létszám: {len(botserver.members)}")
+    room2 = bot.get_channel(id="525316248855117826")
+    await bot.send_message(room2, f"**{member} lelépett...**")
+
 #------------------MOD-----------------------
 @bot.command(pass_context=True)
 @commands.has_permissions(ban_members=True)
