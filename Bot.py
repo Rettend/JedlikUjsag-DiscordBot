@@ -543,13 +543,21 @@ async def on_message(message):
         await bot.send_message(message.channel, embed=emb)
         await bot.send_message(message.channel, embed=embed)
     if message.content.startswith('-dev'):
-        emb = discord.Embed(title="Developer Parancsok", description="", colour=0x3498db)
+        emb = discord.Embed(title="Developer Parancsok", description="", colour=0x2ecc71)
         emb.add_field(name="", value="`-create_adminrole {név}`\n"
                      "`-create_role {pozíció} {név}`\n"
                      "`-delete_role {név}`\n"
                      "`-give_role {member} {role}`\n"
                      "`-remove_role {member} {role}`\n")
         await bot.send_message(message.channel, embed=emb)
+    if message.content.startswith("-dav"):
+        e = discord.Embed(title="Developer Parancsok", description="", colour=0x2ecc71)
+        e.add_field(name="", value="`-create_adminrole {role-név}`\n"
+                    "`-create_role {pozíció} {role-név}`\n"
+                    "`-delete_role {role-név}`\n"
+                    "`-give_role {member} {role-név}\n"
+                    "`-remove_role {member} {role}`\n")
+        await bot.send_message(message.channel, embed=e)
     if message.content.startswith('-8ball'):
         await bot.send_message(message.channel, random.choice(['**Egyértelműen :8ball:**',
                                                               '**Pffff... :8ball:**',
