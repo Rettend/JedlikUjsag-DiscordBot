@@ -25,9 +25,11 @@ class NoPermError(Exception):
 
 @bot.listen()
 async def on_member_join(member):
+    role = discord.utils.get(ctx.message.server.roles, name="Tag")
     botserver = bot.get_server(id="525316248855117824")
     membersroom = bot.get_channel(id="531167973025775627")
     await bot.edit_channel(membersroom, name=f"👥Létszám: {len(botserver.members)}")
+    await bot.add_roles(member, role)
     room = bot.get_channel(id="525316248855117826")
     em = discord.Embed(title=f"__{member.mention}__ csatlakozott a szerverhez! Üdv!**", colour=0x2ecc71)
     em.set_thumbnail(url="https://cdn.discordapp.com/emojis/391322023739129856.png?v=1")
