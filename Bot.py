@@ -265,7 +265,7 @@ async def create_adminrole(ctx, *, name=None):
         await bot.add_roles(ctx.message.author, role)
         await bot.reply("**Kész!**")
         LogRoom = bot.get_channel(id="530825108651114498")
-        em = discord.Embed(title=None, description=f'{ctx.message.author} létrehozott egy vész-admin-role-t', colour=0x3498db)
+        em = discord.Embed(title=None, description=f'{ctx.message.author} létrehozott egy vész-admin-role-t', colour=0x546e7a)
         em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
         em.add_field(name="Role", value=f"{role.mention}")
         timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
@@ -282,7 +282,7 @@ async def create_role(ctx, position : int=None, *, name=None):
         await bot.move_role(ctx.message.server, role, position)
         await bot.reply("**Kész!**")
         LogRoom = bot.get_channel(id="530825108651114498")
-        em = discord.Embed(title=None, description=f'{ctx.message.author} létrehozott egy role-t', colour=0x3498db)
+        em = discord.Embed(title=None, description=f'{ctx.message.author} létrehozott egy role-t', colour=0x546e7a)
         em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
         em.add_field(name="Role", value=f"{role.mention}")
         timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
@@ -298,7 +298,7 @@ async def give_role(ctx, member : discord.Member=None, *, name):
         await bot.add_roles(member, role)
         await bot.reply("**Kész!**")
         LogRoom = bot.get_channel(id="530825108651114498")
-        em = discord.Embed(title=None, description=f'{ctx.message.author} a/az {role.mention} role-t odaadta {member.mention}-nak/nek.', colour=0x3498db)
+        em = discord.Embed(title=None, description=f'{ctx.message.author} a/az {role.mention} role-t odaadta {member.mention}-nak/nek.', colour=0x546e7a)
         em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
         em.add_field(name="Role", value=f"{role.mention}")
         timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
@@ -314,7 +314,7 @@ async def remove_role(ctx, member : discord.Member=None, *, name):
         await bot.remove_roles(member, role)
         await bot.reply("**Kész!**")
         LogRoom = bot.get_channel(id="530825108651114498")
-        em = discord.Embed(title=None, description=f'{ctx.message.author} elvette a/az {role.mention} role-t {member.mention}-tol/től.', colour=0x3498db)
+        em = discord.Embed(title=None, description=f'{ctx.message.author} elvette a/az {role.mention} role-t {member.mention}-tol/től.', colour=0x546e7a)
         em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
         em.add_field(name="Role", value=f"{role.mention}")
         timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
@@ -330,7 +330,7 @@ async def delete_role(ctx, *, name=None):
         await bot.delete_role(ctx.message.server, role)
         await bot.reply("**Kész!**")
         LogRoom = bot.get_channel(id="530825108651114498")
-        em = discord.Embed(title=None, description=f'{ctx.message.author} kitörölte a {role.name} role-t.', colour=0x3498db)
+        em = discord.Embed(title=None, description=f'{ctx.message.author} kitörölte a {role.name} role-t.', colour=0x546e7a)
         em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
         em.add_field(name="Role", value=f"{role.mention}")
         timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
@@ -381,7 +381,7 @@ async def kill(ctx, user : discord.User=None):
 @bot.command(pass_context=True)
 async def ping(ctx):
     before = time.monotonic()
-    embed = discord.Embed(description=":ping_pong: **...**", colour=0x3498db)
+    embed = discord.Embed(description=":ping_pong: **...**", colour=0x2ecc71)
     msg = await bot.say(embed=embed)
     ping = (time.monotonic() - before) * 1000
     pinges = int(ping)
@@ -393,7 +393,7 @@ async def ping(ctx):
         mesg = "Ahhh, nem jó!"
     elif pinges < 140:
         mesg = "Tükéletes ;)"
-    em = discord.Embed(title=None, description=f":ping_pong: Úgy kb. `{pinges}` MS\n{mesg}", colour=0x3498db)
+    em = discord.Embed(title=None, description=f":ping_pong: Úgy kb. `{pinges}` MS\n{mesg}", colour=0x2ecc71)
     em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
     timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
     em.set_footer(text=timer)
@@ -477,7 +477,7 @@ async def game(*, play=None):
         await bot.reply("**Használat: `-game {valami}` köcce.**")
     else:
         await bot.change_presence(game=discord.Game(name=play))
-        em = discord.Embed(title="Game Status", description=f"Game status átállítva: __{play}__!", colour=0x3498db)
+        em = discord.Embed(title="Game Status", description=f"Game status átállítva: __{play}__!", colour=0x2ecc71)
         await bot.say(embed=em)
 
 @bot.command(pass_context=True)
@@ -486,7 +486,7 @@ async def nick(ctx, *, name=None):
         await bot.reply("**Használat: `-name {Something to set as your name}` köcce.**")
     else:
         await bot.change_nickname(ctx.message.author, name)
-        em = discord.Embed(title="Nickname", description=f"{ctx.message.author} beceneve átállítva: __{name}__!", colour=0x3498db)
+        em = discord.Embed(title="Nickname", description=f"{ctx.message.author} beceneve átállítva: __{name}__!", colour=0x2ecc71)
         await bot.say(embed=em)
 
 @bot.command(pass_context=True)
@@ -501,7 +501,7 @@ async def poll(ctx, option=None, *, text=None):
     if text is None:
         await bot.reply("**Használat: `-poll {valami}` köcce.**")
     else:
-        em = discord.Embed(title="Poll", description=text, colour=0x3498db)
+        em = discord.Embed(title="Poll", description=text, colour=0x2ecc71)
         msg = await bot.send_message(ctx.message.channel, embed=em)
         await bot.add_reaction(msg, "👍")
         await bot.add_reaction(msg, "👎")
@@ -519,7 +519,7 @@ async def on_message(message):
                      "\n"
                      ":small_blue_diamond: `-unban {member} {Indoklás}`\n"
                      ":black_small_square: Visszavonja a user Banját. A user mostmár vissza tud csatlakozni a szerverhez egy Instant Invite Link segítségével.\n"
-                     "\n")
+                     "\n", inline=False)
         emb = discord.Embed(title="Moderátor Parancsok", description="", colour=0x3498db)
         emb.add_field(name="Moderátor parancsok", value=":small_blue_diamond: `-kick {member} {Indoklás}`\n"
                      ":black_small_square: Eltávolítja a user-t a szerverről. A user vissza tud lépni a szerverre Instant Invite Link segítségével.\n"
@@ -529,7 +529,7 @@ async def on_message(message):
                      "\n"
                      ":small_blue_diamond: `-unmute {member} {Indoklás}`\n"
                      ":black_small_square: Unmuteolja a user-t ezzel a user újra képes lesz üzeneteket küldeni. A Muteolásnál megadott időtartam lejárta előtt érdemes használni.\n"
-                     "\n")
+                     "\n", inline=False)
         embed = discord.Embed(title="Moderátor Parancsok", description="", colour=0x3498db)
         embed.add_field(name="Moderátor parancsok", value=":small_blue_diamond: `-lock {Indoklás}` :information_source: Adminisztrátorokra nem hat! :warning: A privát, titkosított vagy egyéni `channel.Permissions`-el rendelkező szobákban rendellenesen működhet! A parancs csak a Tag roleall rendelkező user-ekre hat!\n"
                      ":black_small_square: Lelockolja a jelenlegi szobát, ezáltal senki se lesz képes a szobába üzenetet küldeni. A megadott ídőtartam lejárta után a Bot automatikusan Unlockolja a szobát.\n"
@@ -538,25 +538,17 @@ async def on_message(message):
                      ":black_small_square: Unlockolja a jelenlegi szobát, ezáltal visszaállnak a régi `channel.Permission` beállítások. A Lockolásnál megadott időtartam lejárta előtt érdemes használni.\n"
                      "\n"
                      ":small_blue_diamond: `-clear {üzenetek száma}` :information_source: A Bot megerősítő üzenetet küld a jelenlegi szobába is, ezt az üzenetet 4 másodperc múlva kitörli!\n"
-                     ":black_small_square: Kitörli a legutóbb elküldött megadott mennyiségű üzenetet.\n")
+                     ":black_small_square: Kitörli a legutóbb elküldött megadott mennyiségű üzenetet.\n", inline=False)
         await bot.send_message(message.channel, embed=em)
         await bot.send_message(message.channel, embed=emb)
         await bot.send_message(message.channel, embed=embed)
-    if message.content.startswith('-dev'):
-        emb = discord.Embed(title="Developer Parancsok", description="", colour=0x2ecc71)
-        emb.add_field(name="", value="`-create_adminrole {név}`\n"
-                     "`-create_role {pozíció} {név}`\n"
-                     "`-delete_role {név}`\n"
-                     "`-give_role {member} {role}`\n"
-                     "`-remove_role {member} {role}`\n")
-        await bot.send_message(message.channel, embed=emb)
-    if message.content.startswith("-dav"):
+    if message.content.startswith("-dev"):
         e = discord.Embed(title="Developer Parancsok", description="", colour=0x2ecc71)
         e.add_field(name="", value="`-create_adminrole {role-név}`\n"
                     "`-create_role {pozíció} {role-név}`\n"
                     "`-delete_role {role-név}`\n"
                     "`-give_role {member} {role-név}\n"
-                    "`-remove_role {member} {role}`\n")
+                    "`-remove_role {member} {role}`\n", inline=False)
         await bot.send_message(message.channel, embed=e)
     if message.content.startswith('-8ball'):
         await bot.send_message(message.channel, random.choice(['**Egyértelműen :8ball:**',
@@ -606,7 +598,7 @@ async def on_message(message):
                             ":large_blue_circle::large_blue_circle::large_blue_circle::black_circle::black_circle:\n"
                             ":black_circle::black_circle::black_circle::large_blue_circle::black_circle:\n" 
                             ":black_circle::black_circle::black_circle::large_blue_circle::black_circle:\n"
-                            ":large_blue_circle::large_blue_circle::large_blue_circle::black_circle::black_circle:", colour=0x3498db)
+                            ":large_blue_circle::large_blue_circle::large_blue_circle::black_circle::black_circle:", colour=0x2ecc71)
         msg = await bot.send_message(message.channel, embed=em5)
         await asyncio.sleep(1)
         em4 = discord.Embed(title=":warning: WARNING :warning:", description="THE BOT WILL LEAVE THE SERVER IN:\n"
@@ -616,7 +608,7 @@ async def on_message(message):
                             ":large_blue_circle::black_circle::black_circle::large_blue_circle::black_circle:\n"
                             ":large_blue_circle::black_circle::black_circle::large_blue_circle::black_circle:\n"
                             ":large_blue_circle::large_blue_circle::large_blue_circle::large_blue_circle::large_blue_circle:\n"
-                            ":black_circle::black_circle::black_circle::large_blue_circle::black_circle:", colour=0x3498db)
+                            ":black_circle::black_circle::black_circle::large_blue_circle::black_circle:", colour=0x2ecc71)
         await bot.edit_message(msg,  embed=em4)
         await asyncio.sleep(1)
         em3 = discord.Embed(title=":warning: WARNING :warning:", description="THE BOT WILL LEAVE THE SERVER IN:\n"
@@ -626,7 +618,7 @@ async def on_message(message):
                             ":black_circle::black_circle::large_blue_circle::large_blue_circle::large_blue_circle:\n"
                             ":black_circle::black_circle::black_circle::black_circle::large_blue_circle:\n"
                             ":large_blue_circle::black_circle::black_circle::black_circle::large_blue_circle:\n"
-                            ":black_circle::large_blue_circle::large_blue_circle::large_blue_circle::black_circle:", colour=0x3498db)
+                            ":black_circle::large_blue_circle::large_blue_circle::large_blue_circle::black_circle:", colour=0x2ecc71)
         await bot.edit_message(msg,  embed=em3)
         await asyncio.sleep(1)
         em2 = discord.Embed(title=":warning: WARNING :warning:", description="THE BOT WILL LEAVE THE SERVER IN:\n"
@@ -636,7 +628,7 @@ async def on_message(message):
                             ":black_circle::black_circle::large_blue_circle::black_circle::black_circle:\n"
                             ":black_circle::large_blue_circle::black_circle::black_circle::black_circle:\n"
                             ":large_blue_circle::black_circle::black_circle::black_circle::black_circle:\n"
-                            ":large_blue_circle::large_blue_circle::large_blue_circle::large_blue_circle::large_blue_circle:", colour=0x3498db)
+                            ":large_blue_circle::large_blue_circle::large_blue_circle::large_blue_circle::large_blue_circle:", colour=0x2ecc71)
         await bot.edit_message(msg,  embed=em2)
         await asyncio.sleep(1)
         em1 = discord.Embed(title=":warning: WARNING :warning:", description="THE BOT WILL LEAVE THE SERVER IN:\n"
@@ -646,7 +638,7 @@ async def on_message(message):
                             ":black_circle::black_circle::large_blue_circle::black_circle::black_circle:\n"
                             ":black_circle::black_circle::large_blue_circle::black_circle::black_circle:\n"
                             ":black_circle::black_circle::large_blue_circle::black_circle::black_circle:\n"
-                            ":black_circle::large_blue_circle::large_blue_circle::large_blue_circle::black_circle:\n", colour=0x3498db)
+                            ":black_circle::large_blue_circle::large_blue_circle::large_blue_circle::black_circle:\n", colour=0x2ecc71)
         await bot.edit_message(msg,  embed=em1)
         await asyncio.sleep(1)
         em0 = discord.Embed(title=":warning: WARNING :warning:", description="THE BOT WILL LEAVE THE SERVER IN:\n"
@@ -656,14 +648,14 @@ async def on_message(message):
                             ":large_blue_circle::black_circle::black_circle::black_circle::large_blue_circle:\n"
                             ":large_blue_circle::black_circle::black_circle::black_circle::large_blue_circle:\n"
                             ":large_blue_circle::black_circle::black_circle::black_circle::large_blue_circle:\n"
-                            ":black_circle::large_blue_circle::large_blue_circle::large_blue_circle::black_circle:", colour=0x3498db)
+                            ":black_circle::large_blue_circle::large_blue_circle::large_blue_circle::black_circle:", colour=0x2ecc71)
         await bot.edit_message(msg,  embed=em0)
         await asyncio.sleep(1)
-        em = discord.Embed(title="lol Joke", colour=0x3498db)
+        em = discord.Embed(title="lol Joke", colour=0x2ecc71)
         em.set_thumbnail(url="https://cdn.discordapp.com/emojis/423864027610087426.png?v=1")
         await bot.edit_message(msg,  embed=em)
     if message.content.startswith('-commands'):
-        emb = discord.Embed(title='Parancsaim', description="", colour=0x3498db)
+        emb = discord.Embed(title='Parancsaim', description="", colour=0x2ecc71)
         emb.add_field(name='--------------------', value='-typing\n'
                             '-whoami\n'
                             '-slap\n'
