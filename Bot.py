@@ -524,27 +524,27 @@ async def on_message(message):
         emb.add_field(name="Moderátor parancsok", value=":small_blue_diamond: `-kick {member} {Indoklás}`\n"
                      ":black_small_square: Eltávolítja a user-t a szerverről. A user vissza tud lépni a szerverre Instant Invite Link segítségével.\n"
                      "\n"
-                     ":small_orange_diamond: `-mute {member} {Időtartam (másodperc)} {Indoklás}` :information_source: A parancs \"Muted\" rolet ad a usernek!\n"
+                     ":small_blue_diamond: `-mute {member} {Időtartam (másodperc)} {Indoklás}` :information_source: A parancs \"Muted\" rolet ad a usernek!\n"
                      ":black_small_square: Megakadályozza, hogy a user további üzenetet küldjön az összes szobában. A megadott ídőtartam lejárta után a Bot automatikusan Unmuteolja a user-t.\n"
                      "\n"
                      ":small_blue_diamond: `-unmute {member} {Indoklás}`\n"
                      ":black_small_square: Unmuteolja a user-t ezzel a user újra képes lesz üzeneteket küldeni. A Muteolásnál megadott időtartam lejárta előtt érdemes használni.\n"
                      "\n")
         embed = discord.Embed(title="Moderátor Parancsok", description="", colour=0x3498db)
-        emb.add_field(name="Moderátor parancsok", value=":small_orange_diamond: `-lock {Indoklás}` :information_source: Adminisztrátorokra nem hat! :warning: A privát, titkosított vagy egyéni `channel.Permissions`-el rendelkező szobákban rendellenesen működhet! A parancs csak a Tag roleall rendelkező user-ekre hat!\n"
+        embed.add_field(name="Moderátor parancsok", value=":small_blue_diamond: `-lock {Indoklás}` :information_source: Adminisztrátorokra nem hat! :warning: A privát, titkosított vagy egyéni `channel.Permissions`-el rendelkező szobákban rendellenesen működhet! A parancs csak a Tag roleall rendelkező user-ekre hat!\n"
                      ":black_small_square: Lelockolja a jelenlegi szobát, ezáltal senki se lesz képes a szobába üzenetet küldeni. A megadott ídőtartam lejárta után a Bot automatikusan Unlockolja a szobát.\n"
                      "\n"
                      ":small_blue_diamond: `-unlock {Reason}`\n"
                      ":black_small_square: Unlockolja a jelenlegi szobát, ezáltal visszaállnak a régi `channel.Permission` beállítások. A Lockolásnál megadott időtartam lejárta előtt érdemes használni.\n"
                      "\n"
-                     ":small_orange_diamond: `-clear {üzenetek száma}` :information_source: A Bot megerősítő üzenetet küld a jelenlegi szobába is, ezt az üzenetet 4 másodperc múlva kitörli!\n"
+                     ":small_blue_diamond: `-clear {üzenetek száma}` :information_source: A Bot megerősítő üzenetet küld a jelenlegi szobába is, ezt az üzenetet 4 másodperc múlva kitörli!\n"
                      ":black_small_square: Kitörli a legutóbb elküldött megadott mennyiségű üzenetet.\n")
         await bot.send_message(message.channel, embed=em)
         await bot.send_message(message.channel, embed=emb)
         await bot.send_message(message.channel, embed=embed)
     if message.content.startswith('-dev'):
         emb = discord.Embed(title="Developer Parancsok", description="", colour=0x3498db)
-        emb.add_field(name="\n", value="`-create_adminrole {név}`\n"
+        emb.add_field(name="", value="`-create_adminrole {név}`\n"
                      "`-create_role {pozíció} {név}`\n"
                      "`-delete_role {név}`\n"
                      "`-give_role {member} {role}`\n"
