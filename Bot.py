@@ -4,7 +4,7 @@ from discord.ext import commands
 
 #-------------------DATA---------------------
 owner = ["361534796830081024"]
-alowner = ["469150536399323157", "270102554334068747"]
+dev = discord.utils.get(ctx.message.server.roles, name="Developer")
 bot = commands.Bot(command_prefix='-', description=None)
 bot.remove_command("help")
 PRserver = "Lyedlik Újság"
@@ -25,7 +25,7 @@ class NoPermError(Exception):
 
 @bot.listen()
 async def on_member_join(member):
-    role = discord.utils.get(ctx.message.server.roles, name="Tag")
+    role = discord.utils.get(message.server.roles, name="Tag")
     botserver = bot.get_server(id="525316248855117824")
     membersroom = bot.get_channel(id="531167973025775627")
     await bot.edit_channel(membersroom, name=f"👥Létszám: {len(botserver.members)}")
@@ -312,7 +312,7 @@ async def create_role(ctx, position : int=None, *, name=None):
         await bot.reply("**No u**")
 
 @bot.command(pass_context=True)
-async def give_role(ctx, member : discord.Member=None, *, name):
+async def add_role(ctx, member : discord.Member=None, *, name):
     if ctx.message.author.id in owner:
         role = discord.utils.get(ctx.message.server.roles, name=name)
         await bot.add_roles(member, role)
@@ -359,6 +359,23 @@ async def delete_role(ctx, *, name=None):
     else:
         await bot.reply("**No u**")
 
+@bot.command(pass_context=True)
+async def create_name_role(ctx, *, member=None):
+    if ctx.message.author.id in dev:
+        role = await bot.create_role(ctx.message.server)
+        await bot.edit_role(ctx.message.server, role, name=member.name, hoist=False, mentionable=False)
+        await bot.move_role(ctx.message.server, role, 2)
+        await bot.add_roles(member, role)
+        await bot.reply("**Kész!**")
+        LogRoom = bot.get_channel(id="530825108651114498")
+        em = discord.Embed(title=None, description=f'{ctx.message.author} létrehozott egy __Név__ role-t {member.mention}-nak', colour=0x546e7a)
+        em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+        em.add_field(name="Role", value=f"{role.mention}")
+        timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        em.set_footer(text=timer)
+        await bot.send_message(LogRoom, embed=em)
+    else:
+        await bot.reply("**No u**")
 #----------------COMMANDS--------------------
 @bot.command(pass_context=True)
 async def typing(ctx):
