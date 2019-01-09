@@ -7,7 +7,6 @@ owner = ["361534796830081024"]
 bot = commands.Bot(command_prefix='-', description=None)
 PRserver = "Lyedlik Újság"
 botserver = bot.get_server(id="525316248855117824")
-dev = discord.utils.get(botserver.roles, name="Developer")
 bot.remove_command("help")
 underworking = ":warning: **Nem, ez még nincs kész...** :warning:"
 """timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())"""
