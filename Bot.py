@@ -4,10 +4,11 @@ from discord.ext import commands
 
 #-------------------DATA---------------------
 owner = ["361534796830081024"]
-dev = discord.utils.get(ctx.message.server.roles, name="Developer")
+PRserver = "Lyedlik Újság"
+botserver = bot.get_server(id="525316248855117824")
+dev = discord.utils.get(botserver.roles, name="Developer")
 bot = commands.Bot(command_prefix='-', description=None)
 bot.remove_command("help")
-PRserver = "Lyedlik Újság"
 underworking = ":warning: **Nem, ez még nincs kész...** :warning:"
 """timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())"""
 
@@ -26,7 +27,6 @@ class NoPermError(Exception):
 @bot.listen()
 async def on_member_join(member):
     role = discord.utils.get(message.server.roles, name="Tag")
-    botserver = bot.get_server(id="525316248855117824")
     membersroom = bot.get_channel(id="531167973025775627")
     await bot.edit_channel(membersroom, name=f"👥Létszám: {len(botserver.members)}")
     await bot.add_roles(member, role)
@@ -37,7 +37,6 @@ async def on_member_join(member):
 
 @bot.listen()
 async def on_member_remove(member):
-    botserver = bot.get_server(id="525316248855117824")
     membersroom = bot.get_channel(id="531167973025775627")
     await bot.edit_channel(membersroom, name=f"👥Létszám: {len(botserver.members)}")
     room2 = bot.get_channel(id="525316248855117826")
