@@ -417,7 +417,7 @@ async def bug(ctx, *, text=None):
         em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
         timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         em.set_footer(text=timer)
-        channel = bot.get_channel(id="542060960731627520")
+        channel = bot.get_channel(id="542063494271336473")
         await bot.send_message(ctx.message.channel, f"**:white_check_mark: Elküldve ide: {channel.mention}**")
         mesg = await bot.send_message(channel, embed=em)
         await bot.add_reaction(mesg, "👍")
