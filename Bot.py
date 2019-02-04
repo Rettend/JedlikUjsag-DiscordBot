@@ -394,7 +394,7 @@ async def suggest(ctx, pref=None, *, text=None):
         finally:
             colours = [0x11806a, 0x1abc9c, 0x2ecc71, 0x1f8b4c, 0x3498db, 0x206694, 0x9b59b6, 0x71368a, 0xe91e63, 0xad1457, 0xf1c40f, 0xc27c0e, 0xe67e22, 0xa84300, 0xe74c3c, 0x992d22, 0x95a5a6, 0x607d8b, 0x979c9f, 0x546e7a]
             col = random.choice(colours)
-            em = discord.Embed(title=f"{msg}", description=f"**From {ctx.message.author.mention}**\n⋙ {text}", colour=col)
+            em = discord.Embed(title=f"{msg}", description=f"**Feladó: {ctx.message.author.mention}**\n⋙ {text}", colour=col)
             em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
             timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
             em.set_footer(text=timer)
@@ -413,7 +413,7 @@ async def bug(ctx, *, text=None):
     if text is None:
         await bot.reply("**Használat: `-bug {szöveg}`**")
     else:
-        em = discord.Embed(title=f"{msg}", description=f"**Feladó: {ctx.message.author.mention}**\n⋙ {text}", colour=0x2ecc71)
+        em = discord.Embed(title=f"Bug jelentés", description=f"**Feladó: {ctx.message.author.mention}**\n⋙ {text}", colour=0x2ecc71)
         em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
         timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         em.set_footer(text=timer)
