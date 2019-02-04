@@ -376,13 +376,61 @@ async def create_name_role(ctx, *, member=None):
         await bot.reply("**No u**")
 #----------------COMMANDS--------------------
 @bot.command(pass_context=True)
+async def suggest(ctx, pref=None, *, text=None):
+    if pref is None:
+        await bot.reply("**Használat: `-suggest {prefix (Q, S, C)} {szöveg}`\nAz elérhető prefix-ek:\n`Q: question (kérdés)`\n`S: suggestion (kérés, ötlet)`\n`C: command suggestion (parancs ötlet)`**")
+    elif text is None:
+        await bot.reply("**Használat: `-suggest {prefix (Q, S, C)} {szöveg}`\nAz elérhető prefix-ek:\n`Q: question (kérdés)`\n`S: suggestion (kérés, ötlet)`\n`C: command suggestion (parancs ötlet)`**")
+    else:
+        try:
+            if pref is "S":
+                msg = "SUGGESTION"
+            if pref is "Q":
+                msg = "QUESTION"
+            if pref is "C":
+                msg = "COMMAND SUGGESTION"
+            else:
+                bot.say("**A megadott `prefix` nem létezik, kérlek használj egy elérhető prefixet:\n`Q: question (kérdés)`\n`S: suggestion (kérés, ötlet)`\n`C: command suggestion (parancs ötlet)`**")
+        finally:
+            colours = [0x11806a, 0x1abc9c, 0x2ecc71, 0x1f8b4c, 0x3498db, 0x206694, 0x9b59b6, 0x71368a, 0xe91e63, 0xad1457, 0xf1c40f, 0xc27c0e, 0xe67e22, 0xa84300, 0xe74c3c, 0x992d22, 0x95a5a6, 0x607d8b, 0x979c9f, 0x546e7a]
+            col = random.choice(colours)
+            em = discord.Embed(title=f"{msg}", description=f"**From {ctx.message.author.mention}**\n⋙ {text}", colour=col)
+            em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+            timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+            em.set_footer(text=timer)
+            channel = bot.get_channel(id="542060960731627520")
+            await bot.send_message(ctx.message.channel, f"**:white_check_mark: Elküldve ide: {channel.mention}**")
+            mesg = await bot.send_message(channel, embed=em)
+            if pref is "S":
+                await bot.add_reaction(mesg, "👍")
+                await bot.add_reaction(mesg, "👎")
+            if pref is "C":
+                await bot.add_reaction(mesg, "👍")
+                await bot.add_reaction(mesg, "👎")
+
+@bot.command(pass_context=True)
+async def bug(ctx, *, text=None):
+    if text is None:
+        await bot.reply("**Használat: `-bug {szöveg}`**")
+    else:
+        em = discord.Embed(title=f"{msg}", description=f"**Feladó: {ctx.message.author.mention}**\n⋙ {text}", colour=0x2ecc71)
+        em.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+        timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        em.set_footer(text=timer)
+        channel = bot.get_channel(id="542060960731627520")
+        await bot.send_message(ctx.message.channel, f"**:white_check_mark: Elküldve ide: {channel.mention}**")
+        mesg = await bot.send_message(channel, embed=em)
+        await bot.add_reaction(mesg, "👍")
+        await bot.add_reaction(mesg, "👎")
+
+@bot.command(pass_context=True)
 async def typing(ctx):
-    await bot.say("**Typing effect ON!** :ok_hand:")
+    await bot.say("**Typing effect bekapcs!** :ok_hand:")
     await bot.send_typing(ctx.message.channel)
 
 @bot.command(pass_context=True)
 async def whoami(ctx):
-    msg = [" the Captain, aye aye! <:blobSalute:402168383556157442>", " Sir Lancelot", " gay :couple_mm:", " :regional_indicator_y: :regional_indicator_o: :regional_indicator_u:", " banned <:pepeBanhammer:423892407650877442>", "John Dick", " the Terminator!!", f" nothing, so go to {LemonRoom.mention} and farm lemons", " me", " a Bot", "... aaaaaaaaa!! A SPIDER!!!", " SuperMario", "... Its Raining Man!", " the Deathhh", " a dancing skeleton", " your mom's child", " ( ͡° ͜ʖ ͡°) <- this guy", " your mom and your sister is your dad", " a chicken", " a rabbit xd", " a fucking chicken", " _nothing_  hehe", ", wait, who you?", " a giant penis", " the devil >:)", " Donald Trump", " an Alien", " scared as hell... (ha ha)", " somebody, idk u Lol.", " a fat mouse.", " the Sup-sup-super Grandma!", " uhm, Should i know you??", ", ahhhhhh", " You."]
+    msg = [" the Captain, aye aye!", " Sir Lancelot", " gay :couple_mm:", " :regional_indicator_y: :regional_indicator_o: :regional_indicator_u:", " banned", "John Dick", " the Terminator!!", f" nothing", " me", " a Bot", "... aaaaaaaaa!! A SPIDER!!!", " SuperMario", "... It's Raining Man!", " the Deathhh", " a dancing skeleton", " your mom's child", ", ( ͡° ͜ʖ ͡°) <- this guy", " your mom and your sister is your dad", " a chicken", " a rabbit xd", " a fucking chicken", " _nothing_  hehe", ", wait, who you?", " a giant penis", " a piant genis", " the devil >:)", " Donald Trump", " an Alien", " scared as hell... (ha ha)", " somebody, idk u Lol.", " a fat mouse.", " the Sup-sup-super Grandma!", " uhm, Should i know you??", ", ahhhhhh", " You.", ", :ok_hand: :joy:"]
     smsg = random.choice(msg)
     colours = [0x11806a, 0x1abc9c, 0x2ecc71, 0x1f8b4c, 0x3498db, 0x206694, 0x9b59b6, 0x71368a, 0xe91e63, 0xad1457, 0xf1c40f, 0xc27c0e, 0xe67e22, 0xa84300, 0xe74c3c, 0x992d22, 0x95a5a6, 0x607d8b, 0x979c9f, 0x546e7a]
     col = random.choice(colours)
@@ -423,7 +471,7 @@ async def ping(ctx):
     if 999 > pinges > 400:
         mesg = "Az sok!"
     elif pinges > 1000:
-        mesg = "Rohaddddttt lasssúuuúuúúú!!!!"
+        mesg = "Rohaddddttt lasssúuuúuúúú!!4!44!"
     elif 399 > pinges > 141:
         mesg = "Ahhh, nem jó!"
     elif pinges < 140:
