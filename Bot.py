@@ -375,6 +375,28 @@ async def create_name_role(ctx, *, member=None):
     else:
         await bot.reply("**No u**")
 #----------------COMMANDS--------------------
+@bot.command()
+async def submit(ctx, name:str=None, colours:str=None, *, description:str=None):
+    if name is None:
+        await ctx.send("**Használat: `-submit {Témanév} {Szín1-Szín2...} {Megjegyzés}`**")
+    elif colours is None:
+        await ctx.send("**Használat: `-submit {Témanév} {Szín1-Szín2...} {Megjegyzés}`**")
+    else:
+        channel = bot.get_channel()
+        em = discord.Embed(
+        title="Téma feltöltés",
+        description=f"Feladó: {ctx.message.author.mention}\n",
+        color=0x206694
+        )
+        em.add_field(name="Téma neve", value=f"{name}")
+        em.add_field(name="Színek", value=f"{colours}")
+        em.add_field(name="Megjegyzés", value=f"{description}")
+        em.set_thumbnail(url="")
+        timer = time.strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        em.set_footer(text=timer)
+        await channel.send(embed=em)
+        await ctx.send(f"**:white_check_mark: Elküldve ide: {channel.mention}**")
+
 @bot.command(pass_context=True)
 async def suggest(ctx, pref=None, *, text=None):
     if pref is None:
